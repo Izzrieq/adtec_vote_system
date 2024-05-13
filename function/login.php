@@ -1,0 +1,48 @@
+<?php
+session_start();
+include "../conf/dbconn.php"; 
+
+$ndp = $_POST['ndp'];
+$password = $_POST['password'];
+
+$ndp = mysqli_real_escape_string($conn, $ndp);
+$password = mysqli_real_escape_string($conn, $password);
+
+$sql = "SELECT * FROM user WHERE ndp = '$ndp'";
+$result = $conn->query($sql);
+
+if ($result === false) {
+    echo "Query error: " . $conn->error;
+    exit;
+}
+
+if ($result->num_rows == 1) {
+    $row = $result->fetch_assoc();
+
+
+    if ($password == $row['password']) { 
+        $_SESSION['logged_in'] = true;
+        $_SESSION['password'] = $row['password'];
+        $_SESSION['ndp'] = $row['ndp'];
+        $_SESSION['username'] = $row['username'];
+        $_SESSION['type'] = $row['type'];
+        $_SESSION['bengkel'] = $row['bengkel'];
+        $_SESSION['ismpp'] = $row['ismpp'];
+        $_SESSION['jawatan'] = $row['jawatan'];
+        $_SESSION['isvoted'] = $row['isvoted'];
+        $_SESSION['img'] = $row['img'];
+
+        if ($row['type'] == 'pelajar') {
+            header("Location: ../home.php"); 
+        } else if ($row['type'] == 'staff') {
+            header("Location: ../home.php"); 
+        } else {
+            echo "<script>alert('Invalid user type.'); window.location.href = '../index.php';</script>";
+        }
+    } else {
+        echo "<script>alert('Invalid login credentials.'); window.location.href = '../index.php';</script>";
+    }
+} else {
+    echo "<script>alert('Invalid login credentials.'); window.location.href = '../index.php';</script>";
+}
+?>
