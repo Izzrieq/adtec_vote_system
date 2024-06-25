@@ -37,6 +37,7 @@ error_reporting(E_ALL);
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Voting System</title>
 <link rel="stylesheet" href="assets/styles/style.css">
+<script src="https://kit.fontawesome.com/8f1ca98d75.js" crossorigin="anonymous"></script>
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
@@ -48,9 +49,10 @@ error_reporting(E_ALL);
       <ul>
         <li><a href="home.php">Home</a></li>
         <?php
-        if ($type === 'staff'){
+        if ($type === 'staff' || $type === 'admin'){
         ?>
         <li><a href="managempp.php">Manage</a></li>
+        <li><a href="senaraipelajar.php">Senarai Pelajar</a></li>
         <?php
         }
         ?>
@@ -74,19 +76,19 @@ error_reporting(E_ALL);
       ?>
       <form action="function/update_jawatan.php" method="POST">
         <div class="user-card">
-        <img src="<?php echo $imageSrc ?>" alt="" width="100px">
+          <img src="<?php echo $imageSrc ?>" alt="" width="100px">
           <div class="user-card-info">
             <h3 class="text-xl"><?php echo $row['username']; ?></h3>
             <input type="text"  class="px-3 py-3 my-2 placeholder-black text-sm" 
-            placeholder = "Type : <?php echo $row['type']; ?>" readonly> 
+            placeholder="Type: <?php echo $row['type']; ?>" readonly> 
             <input type="text"  class="px-3 py-3 my-2 placeholder-black text-sm" 
-            placeholder = "Ndp : <?php echo $row['ndp']; ?>" readonly> 
+            placeholder="Ndp: <?php echo $row['ndp']; ?>" readonly> 
             <input type="text"  class="px-3 py-3 my-2 placeholder-black text-sm" 
-            placeholder = "Bengkel : <?php echo $row['bengkel']; ?>" readonly> 
+            placeholder="Bengkel: <?php echo $row['bengkel']; ?>" readonly> 
             <input type="text"  class="px-3 py-3 my-2 placeholder-black text-sm" 
-            placeholder = "Vote Counte : <?php echo $row['votecount']; ?>" readonly> 
+            placeholder="Vote Count: <?php echo $row['votecount']; ?>" readonly> 
             <input type="text"  class="px-3 py-3 placeholder-black text-sm" 
-            placeholder = "Jawatan : <?php echo $row['jawatan']; ?>" readonly> 
+            placeholder="Jawatan: <?php echo $row['jawatan']; ?>" readonly> 
             <select name="jawatan" id="jawatan" class="border-0 px-3 py-3 my-3 placeholder-blueGray-300 
             text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full 
             ease-linear transition-all duration-150">
@@ -95,10 +97,9 @@ error_reporting(E_ALL);
             $sql_jawatan = "SELECT * FROM jawatan";
             $result_jawatan = $conn->query($sql_jawatan);
             if ($result_jawatan->num_rows > 0) {
-                while ($row_jawatan = $result_jawatan->fetch_assoc()) {
-                echo '<option value="' . $row_jawatan['jenisjawatan'] . '">' . $row_jawatan['jenisjawatan'] . 
-                '</option>';
-                }
+              while ($row_jawatan = $result_jawatan->fetch_assoc()) {
+                echo '<option value="' . $row_jawatan['jenisjawatan'] . '">' . $row_jawatan['jenisjawatan'] . '</option>';
+              }
             }
             ?>
             </select>
@@ -111,6 +112,7 @@ error_reporting(E_ALL);
             dark:bg-red-600 dark:hover:bg-red-700 focus:outline-none 
             dark:focus:ring-red-800">Revoke Jawatan</button>
             <input type="hidden" name="ndp" value="<?php echo $row['ndp']; ?>">
+          </div>
         </div>
       </form>
       <?php
@@ -120,34 +122,39 @@ error_reporting(E_ALL);
   }
   ?>
 </div>
- <button class="floating-button" onclick="openModal()">
-    <span class="floating-button-icon">+</span>
-  </button>
+<button class="floating-button-chart">
+  <span class="floating-button-icon"><a href="chart.php">
+    <i class="fa fa-bar-chart"></i>
+  </a></span>
+</button>
+<button class="floating-button" onclick="openModal()">
+  <span class="floating-button-icon">+</span>
+</button>
 
-  <div id="myModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <form action="function/add_candidate.php" method="POST">
-        <h2>Choose User</h2>
-        <label for="userSelect">Select User:</label>
-        <select id="userSelect" name="userSelect">
-          <option value="" disabled selected>Please Select</option>
-          <?php
-          $sql_users = "SELECT * FROM user WHERE ismpp <> 'Yes' AND type <> 'staff'";
-          $result_users = $conn->query($sql_users);
-          if ($result_users->num_rows > 0) {
-            while ($row_user = $result_users->fetch_assoc()) {
-              echo '<option value="' . $row_user['ndp'] . '">' . $row_user['username'] . '</option>';
-            }
-          }else {
-            echo '<option value="">No candidate at the moment</option>';
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <form action="function/add_candidate.php" method="POST">
+      <h2>Choose User</h2>
+      <label for="userSelect">Select User:</label>
+      <select id="userSelect" name="userSelect">
+        <option value="" disabled selected>Please Select</option>
+        <?php
+        $sql_users = "SELECT * FROM user WHERE ismpp = 'No' AND type = 'pelajar' And jawatan = '-'";
+        $result_users = $conn->query($sql_users);
+        if ($result_users->num_rows > 0) {
+          while ($row_user = $result_users->fetch_assoc()) {
+            echo '<option value="' . $row_user['ndp'] . '">' . $row_user['username'] . '</option>';
           }
-          ?>
-        </select>
-        <button type="submit">Add Candidate</button>
-      </form>
-    </div>
+        } else {
+          echo '<option value="">No candidate at the moment</option>';
+        }
+        ?>
+      </select>
+      <button type="submit">Add Candidate</button>
+    </form>
   </div>
+</div>
 
   <script>
     function openModal() {

@@ -51,9 +51,10 @@ error_reporting(E_ALL);
       <ul>
         <li><a href="home.php">Home</a></li>
         <?php
-        if ($type === 'staff'){
+        if ($type === 'admin' || $type === 'pengajar'){
         ?>
         <li><a href="managempp.php">Manage</a></li>
+        <li><a href="senaraipelajar.php">Senarai Pelajar</a></li>
         <?php
         }
         ?>

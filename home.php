@@ -48,15 +48,16 @@ $imgsession = $_SESSION['img'];
 <body>
 <nav class="navbar">
     <div class="navbar-left">
-      <img src="assets/img/adtecmelaka.jpeg" alt="Logo" class="logo">
+        <h1>SISTEM E-UNDIAN ADTEC MELAKA</h1>
     </div>
     <div class="navbar-right">
       <ul>
         <li><a href="home.php">Home</a></li>
         <?php
-        if ($type === 'staff'){
+        if ($type === 'pengajar'||$type === 'admin'){
         ?>
         <li><a href="managempp.php">Manage</a></li>
+        <li><a href="senaraipelajar.php">Senarai Pelajar</a></li>
         <?php
         }
         ?>

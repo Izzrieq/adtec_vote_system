@@ -27,7 +27,7 @@
 
 </style>
 <body class="m-0 p-0 font-sans md:font-serif overflow-y-hidden">
-<header>
+<!-- <header>
         <div class="w-25 p-0 h-25 d-inline-block ml-2 md:w-32 lg:w-48">
             <a href="index.php">
             <img  class="w-100 m-0 h-100 d-inline-block " src="assets/img/adtecmelaka.jpeg" alt="logo">
@@ -36,9 +36,9 @@
         <div class="p-3 h-full max-lg:hidden">
             <h1>ADTEC MPP E-VOTE SYSTEM</h1>
         </div>
-</header>
+</header> -->
 
-<div class="flex flex-col h-screen bg-neutral-50">
+<div class="flex flex-col h-screen bg-[url('assets/img/adtec.jpg')] bg-cover">
     <div class="grid place-items-center sm:my-auto" x-data="{ showPass: true }">
         <div class="w-11/12 p-20 sm:w-8/12 md:w-6/12 lg:w-5/12 2xl:w-4/12 mb-36
                 px-6 py-8 sm:px-12 sm:py-10

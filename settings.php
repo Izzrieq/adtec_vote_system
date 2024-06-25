@@ -61,6 +61,7 @@ if ($r = mysqli_fetch_array($result)) {
         if ($type === 'staff'){
         ?>
         <li><a href="managempp.php">Manage</a></li>
+        <li><a href="senaraipelajar.php">Senarai Pelajar</a></li>
         <?php
         }
         ?>

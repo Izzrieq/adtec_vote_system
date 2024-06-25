@@ -2,6 +2,11 @@
   margin: 0;
   padding: 0;
 }
+body{
+  background: url("../img/adtec.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 
 .login-container {
   max-width: 400px;
@@ -50,7 +55,7 @@ button:hover {
 }
 
 .navbar {
-  background-color: #007bff;
+  background-color: rgb(31, 31, 31);
   padding: 10px 20px; /* Adjust padding for smaller screens */
   display: flex;
   justify-content: space-between;
@@ -60,6 +65,11 @@ button:hover {
 .navbar-left {
   display: flex;
   align-items: center;
+}
+.navbar-left h1{
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .navbar-right ul {
@@ -82,7 +92,6 @@ table {
   width: 30%;
   padding: 5px;
   margin: 5px 6px;
-  border-radius: 20px;
   border-collapse: collapse; /* Ensure borders are collapsed properly */
 }
 
@@ -96,18 +105,23 @@ tr, th, td {
 .logo {
   max-width: 100px; /* Adjust logo size for smaller screens */
 }
+.hero-section table{
+  background-color: white;
+}
 
 .organization-chart {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Responsive grid */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
   gap: 20px;
 }
 
 .chart-node {
   border: 1px solid #ccc;
-  padding: 10px;
-  text-align: center;
+  padding: 15px;
+  text-align: left;
   background-color: #f8f8f8;
+  border-radius: 10px;
+  font-size: 20px;
 }
 
 .node {
@@ -116,7 +130,7 @@ tr, th, td {
 
 .users-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   grid-gap: 20px;
 }
 
@@ -157,6 +171,46 @@ tr, th, td {
   max-width: 600px;
 }
 
+.floating-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+}
+.floating-button-chart {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+}
+.floating-button-icon {
+  margin: 0;
+}
+
+.floating-button:hover {
+  background-color: #0056b3;
+}
+
 .close {
   color: #aaa;
   float: right;
@@ -170,6 +224,7 @@ tr, th, td {
   text-decoration: none;
   cursor: pointer;
 }
+
 
 .floating-button {
   position: fixed;
@@ -189,10 +244,6 @@ tr, th, td {
 
 .floating-button:hover {
   background-color: #0056b3;
-}
-
-.floating-button-icon {
-  margin-top: 10px;
 }
 
 @media only screen and (max-width: 768px) {

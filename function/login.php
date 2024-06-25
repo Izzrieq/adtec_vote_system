@@ -19,7 +19,6 @@ if ($result === false) {
 if ($result->num_rows == 1) {
     $row = $result->fetch_assoc();
 
-
     if ($password == $row['password']) { 
         $_SESSION['logged_in'] = true;
         $_SESSION['password'] = $row['password'];
@@ -32,17 +31,29 @@ if ($result->num_rows == 1) {
         $_SESSION['isvoted'] = $row['isvoted'];
         $_SESSION['img'] = $row['img'];
 
-        if ($row['type'] == 'pelajar') {
-            header("Location: ../home.php"); 
-        } else if ($row['type'] == 'staff') {
-            header("Location: ../home.php"); 
+        // Determine redirect URL based on user type
+        $redirectUrl = "../home.php";
+        if ($row['type'] == 'pelajar' || $row['type'] == 'pengajar' || $row['type'] == 'admin') {
+            echo "<script>
+                    alert('Login successful!');
+                    window.location.href = '$redirectUrl';
+                  </script>";
         } else {
-            echo "<script>alert('Invalid user type.'); window.location.href = '../index.php';</script>";
+            echo "<script>
+                    alert('Invalid user type.');
+                    window.location.href = '../index.php';
+                  </script>";
         }
     } else {
-        echo "<script>alert('Invalid login credentials.'); window.location.href = '../index.php';</script>";
+        echo "<script>
+                alert('Invalid login credentials.');
+                window.location.href = '../index.php';
+              </script>";
     }
 } else {
-    echo "<script>alert('Invalid login credentials.'); window.location.href = '../index.php';</script>";
+    echo "<script>
+            alert('Invalid login credentials.');
+            window.location.href = '../index.php';
+          </script>";
 }
 ?>
