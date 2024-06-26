@@ -22,6 +22,7 @@ $type = $_SESSION['type'];
 $ismpp = $_SESSION['ismpp'];
 $jawatan = $_SESSION['jawatan'];
 $isvoted = $_SESSION['isvoted'];
+$img = $_SESSION['img'];
 
 $sql = "SELECT * FROM user WHERE ismpp = 'yes' AND jawatan = '-'";
 $result = $conn->query($sql);
@@ -64,22 +65,27 @@ error_reporting(E_ALL);
       </ul>
     </div>
   </nav>
-  <h1>Welcome <?php echo $username ?></h1>
   <div class="users-container">
   <?php
   if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
+      $imgSession = $row['img'];
+      $imageData = 'data:image/png;base64,' . base64_encode($imgSession);
         ?>
-        <div class="user-card">
-          <h3><?php echo $row['username']; ?></h3>
-          <p>Type: <?php echo $row['type']; ?></p>
+        <div class="user-card-voting">
+          <div class="user-card-context">
+          <h3><?php echo $row['username']; ?></h3>          <p>Type: <?php echo $row['type']; ?></p>
           <p>NDP: <?php echo $row['ndp']; ?></p>
           <p>Bengkel: <?php echo $row['bengkel']; ?></p>
           <p>Vote: <?php echo $row['votecount']; ?></p>
           <form action="function/vote.php" method="POST">
             <input type="hidden" name="ndp" value="<?php echo $row['ndp']; ?>">
-            <button type="submit">Vote</button>
+            <button class="votingBtn" type="submit">Vote</button>
           </form>
+          </div>
+          <div class="user-card-img">
+            <img src="<?php echo $imageData; ?>" alt="userImg" style="height:200px; width:150px;">
+          </div>
         </div>
         <?php
     }
